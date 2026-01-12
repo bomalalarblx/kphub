@@ -515,7 +515,7 @@ end)
         end
     })
     Tabs.FPS:AddButton({
-        Title = "Optimizer V1(",
+        Title = "Optimizer V1",
         Description = "",
         Callback = function()
   _G.Ignore = {}
