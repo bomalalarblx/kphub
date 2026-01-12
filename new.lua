@@ -368,6 +368,178 @@ player.CharacterAdded:Connect(onCharacterAdded)
 userInput.JumpRequest:Connect(onJumpRequest)
     end
     })
+    Tabs.Config:AddButton({
+        Title = "Hop Server",
+        Description = "",
+        Callback = function()
+            loadstring(game:HttpGet("https://raw.githubusercontent.com/Morples/Server-hop/refs/heads/main/Script"))()
+        end
+    })
+    Tabs.Config:AddButton({
+        Title = "Rejoin",
+        Description = "",
+        Callback = function()
+local TeleportService = game:GetService("TeleportService")
+local Players = game:GetService("Players")
+
+local player = Players.LocalPlayer
+
+function rejoinServer()
+    local placeId = game.PlaceId
+    local jobId = game.JobId
+    TeleportService:TeleportToPlaceInstance(placeId, jobId, player)
+end
+
+-- Example usage: call rejoinServer() via a button or event
+rejoinServer()
+        end
+    })
+    Tabs.Config:AddButton({
+        Title = "Job-ID Joiner",
+        Description = "",
+        Callback = function()
+         --[[
+	WARNING: Heads up! This script has not been verified by ScriptBlox. Use at your own risk!
+]]
+-- Create the GUI
+local screenGui = Instance.new("ScreenGui")
+screenGui.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
+
+local frame = Instance.new("Frame")
+frame.Size = UDim2.new(0, 300, 0, 150)
+frame.Position = UDim2.new(0.5, -150, 0.5, -75)
+frame.BackgroundColor3 = Color3.fromRGB(50, 50, 50) -- Grey background
+frame.Active = true
+frame.Draggable = true
+frame.Parent = screenGui
+
+-- Add rounded corners to the frame
+local uiCorner = Instance.new("UICorner")
+uiCorner.CornerRadius = UDim.new(0, 8) -- Adjust corner radius as needed
+uiCorner.Parent = frame
+
+local title = Instance.new("TextLabel")
+title.Text = "Join Server by Job ID"
+title.Size = UDim2.new(1, 0, 0, 30)
+title.Position = UDim2.new(0, 0, 0, 0)
+title.BackgroundColor3 = Color3.fromRGB(40, 40, 40) -- Darker grey
+title.TextColor3 = Color3.fromRGB(255, 255, 255)
+title.Font = Enum.Font.FredokaOne -- Set font to Fredoka One
+title.Parent = frame
+
+-- Add rounded corners to the title
+local titleCorner = Instance.new("UICorner")
+titleCorner.CornerRadius = UDim.new(0, 8)
+titleCorner.Parent = title
+
+local textBox = Instance.new("TextBox")
+textBox.PlaceholderText = "Enter Job ID"
+textBox.Size = UDim2.new(0.8, 0, 0, 30)
+textBox.Position = UDim2.new(0.1, 0, 0.4, 0)
+textBox.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+textBox.TextColor3 = Color3.fromRGB(0, 0, 0)
+textBox.Font = Enum.Font.FredokaOne -- Set font to Fredoka One
+textBox.Parent = frame
+
+-- Add rounded corners to the text box
+local textBoxCorner = Instance.new("UICorner")
+textBoxCorner.CornerRadius = UDim.new(0, 8)
+textBoxCorner.Parent = textBox
+
+local joinButton = Instance.new("TextButton")
+joinButton.Text = "Join Server"
+joinButton.Size = UDim2.new(0.8, 0, 0, 30)
+joinButton.Position = UDim2.new(0.1, 0, 0.7, 0)
+joinButton.BackgroundColor3 = Color3.fromRGB(0, 120, 255)
+joinButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+joinButton.Font = Enum.Font.FredokaOne -- Set font to Fredoka One
+joinButton.Parent = frame
+
+-- Add rounded corners to the button
+local buttonCorner = Instance.new("UICorner")
+buttonCorner.CornerRadius = UDim.new(0, 8)
+buttonCorner.Parent = joinButton
+
+-- Function to join the server by Job ID
+joinButton.MouseButton1Click:Connect(function()
+    local jobId = textBox.Text
+    if jobId and jobId ~= "" then
+        game:GetService("TeleportService"):TeleportToPlaceInstance(game.PlaceId, jobId)
+    else
+        print("Please enter a valid Job ID.")
+    end
+end)
+        end
+    })
+    Tabs.FPS:AddButton({
+        Title = "Uncapped 240 FPS",
+        Description = "going over 240fps is not good",
+        Callback = function()
+         setfpscap(9999)
+        end
+    })
+    Tabs.FPS:AddButton({
+        Title = "Optimizer V1",
+        Description = "",
+        Callback = function()
+         -- Booster/Optimizer Script for FPS in Roblox
+
+local Players = game:GetService("Players")
+local LocalPlayer = Players.LocalPlayer
+local Camera = workspace.CurrentCamera
+
+-- Lower Roblox graphics quality (client's machine only)
+settings().RenderingQualityLevel = Enum.QualityLevel.Level01
+
+-- Function to reduce textures on parts
+local function lowerTextures()
+    for _, obj in ipairs(workspace:GetDescendants()) do
+        if obj:IsA("Texture") or obj:IsA("Decal") then
+            obj.Transparency = 1 -- Hide texture/decals
+        end
+    end
+end
+
+-- Function to disable particle effects
+local function disableParticles()
+    for _, obj in ipairs(workspace:GetDescendants()) do
+        if obj:IsA("ParticleEmitter") or obj:IsA("Trail") or obj:IsA("Smoke") or obj:IsA("Fire") then
+            obj.Enabled = false
+        end
+    end
+end
+
+-- Function to remove/fade distant models
+local function lowerRenderingModels(distance)
+    for _, obj in ipairs(workspace:GetDescendants()) do
+        if obj:IsA("BasePart") and obj.Parent and obj.Parent:IsA("Model") then
+            local char = LocalPlayer.Character
+            if char and char:FindFirstChild("HumanoidRootPart") then
+                local pos = obj.Position
+                local camPos = Camera.CFrame.Position
+                local dist = (pos - camPos).Magnitude
+                if dist > distance then
+                    obj.Transparency = 1 -- Hide part
+                    obj.CanCollide = false
+                end
+            end
+        end
+    end
+end
+
+-- Call optimization functions
+lowerTextures()
+disableParticles()
+lowerRenderingModels(120) -- Only render models within 120 studs of the camera
+
+-- Optionally, repeat optimization periodically or on render-step
+game:GetService("RunService").RenderStepped:Connect(function()
+    lowerRenderingModels(120)
+end)
+
+print("FPS Boost/Optimizer enabled!")
+    end
+    })
     Tabs.FPS:AddButton({
         Title = "White Texture",
         Description = "",
