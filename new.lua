@@ -188,6 +188,35 @@ do
            loadstring(game:HttpGet("https://raw.githubusercontent.com/bomalalarblx/.gg-kindperson/refs/heads/main/saygex"))()
         end
     })
+    
+    local Toggle = Tabs.PVP:AddToggle("MyToggle", {Title = "Aimbot(Testing)", Default = false })
+
+    Toggle:OnChanged(function()
+        print("Toggle changed:", Options.MyToggle.Value)
+    end)
+
+    Options.MyToggle:SetValue(false)
+    Tabs.PVP:AddButton({
+        Title = "FOV(Testing)",
+        Description = "",
+        Callback = function()
+local Circle = Instance.new("ImageLabel")
+Circle.Parent = FOVCircle
+Circle.AnchorPoint = Vector2.new(0.5, 0.5)
+Circle.Position = UDim2.new(0.5, 0, 0.5, 0)
+Circle.Size = UDim2.new(1, 0, 1, 0)
+Circle.BackgroundTransparency = 1
+Circle.Image = "rbxassetid://4910799599" -- simple circle image
+Circle.ImageColor3 = Color3.fromRGB(40, 200, 200)
+Circle.ImageTransparency = 0.5
+
+function setFOVRadius(radius)
+    FOV_RADIUS = radius
+    FOVCircle.Size = UDim2.new(0, FOV_RADIUS*2, 0, FOV_RADIUS*2)
+end
+    end
+    })
+
     Tabs.Player:AddButton({
         Title = "Desync V1 (Key)",
         Description = "",
@@ -368,6 +397,13 @@ player.CharacterAdded:Connect(onCharacterAdded)
 userInput.JumpRequest:Connect(onJumpRequest)
     end
     })
+    Tabs.Player:AddButton({
+        Title = "Kill Roblox",
+        Description = "",
+        Callback = function()
+          loadstring(game:HttpGet("https://youtube.com"))()
+        end
+    })
     Tabs.Config:AddButton({
         Title = "Hop Server",
         Description = "",
@@ -479,65 +515,59 @@ end)
         end
     })
     Tabs.FPS:AddButton({
-        Title = "Optimizer V1",
+        Title = "Optimizer V1(",
         Description = "",
         Callback = function()
-         -- Booster/Optimizer Script for FPS in Roblox
-
-local Players = game:GetService("Players")
-local LocalPlayer = Players.LocalPlayer
-local Camera = workspace.CurrentCamera
-
--- Lower Roblox graphics quality (client's machine only)
-settings().RenderingQualityLevel = Enum.QualityLevel.Level01
-
--- Function to reduce textures on parts
-local function lowerTextures()
-    for _, obj in ipairs(workspace:GetDescendants()) do
-        if obj:IsA("Texture") or obj:IsA("Decal") then
-            obj.Transparency = 1 -- Hide texture/decals
-        end
-    end
-end
-
--- Function to disable particle effects
-local function disableParticles()
-    for _, obj in ipairs(workspace:GetDescendants()) do
-        if obj:IsA("ParticleEmitter") or obj:IsA("Trail") or obj:IsA("Smoke") or obj:IsA("Fire") then
-            obj.Enabled = false
-        end
-    end
-end
-
--- Function to remove/fade distant models
-local function lowerRenderingModels(distance)
-    for _, obj in ipairs(workspace:GetDescendants()) do
-        if obj:IsA("BasePart") and obj.Parent and obj.Parent:IsA("Model") then
-            local char = LocalPlayer.Character
-            if char and char:FindFirstChild("HumanoidRootPart") then
-                local pos = obj.Position
-                local camPos = Camera.CFrame.Position
-                local dist = (pos - camPos).Magnitude
-                if dist > distance then
-                    obj.Transparency = 1 -- Hide part
-                    obj.CanCollide = false
-                end
-            end
-        end
-    end
-end
-
--- Call optimization functions
-lowerTextures()
-disableParticles()
-lowerRenderingModels(120) -- Only render models within 120 studs of the camera
-
--- Optionally, repeat optimization periodically or on render-step
-game:GetService("RunService").RenderStepped:Connect(function()
-    lowerRenderingModels(120)
-end)
-
-print("FPS Boost/Optimizer enabled!")
+  _G.Ignore = {}
+_G.Settings = {
+    Players = {
+        ["Ignore Me"] = true,
+        ["Ignore Others"] = true,
+        ["Ignore Tools"] = true
+    },
+    Meshes = {
+        NoMesh = false,
+        NoTexture = false,
+        Destroy = false
+    },
+    Images = {
+        Invisible = true,
+        Destroy = false
+    },
+    Explosions = {
+        Smaller = true,
+        Invisible = false, -- Not for PVP games
+        Destroy = false -- Not for PVP games
+    },
+    Particles = {
+        Invisible = true,
+        Destroy = false
+    },
+    TextLabels = {
+        LowerQuality = true,
+        Invisible = false,
+        Destroy = false
+    },
+    MeshParts = {
+        LowerQuality = true,
+        Invisible = true,
+        NoTexture = true,
+        NoMesh = true,
+        Destroy = true
+    },
+    Other = {
+        ["FPS Cap"] = 240, -- true to uncap
+        ["No Camera Effects"] = true,
+        ["No Clothes"] = true,
+        ["Low Water Graphics"] = true,
+        ["No Shadows"] = true,
+        ["Low Rendering"] = true,    
+        ["Low Quality Parts"] = true,
+        ["Low Quality Models"] = true,
+        ["Reset Materials"] = true,
+    }
+}
+loadstring(game:HttpGet("https://raw.githubusercontent.com/CasperFlyModz/discord.gg-rips/main/FPSBooster.lua"))()
     end
     })
     Tabs.FPS:AddButton({
@@ -768,9 +798,50 @@ for _, player in ipairs(game.Players:GetPlayers()) do
 end
      end
      })
-end
+     Tabs.Main:AddButton({
+        Title = "Infinite Yield",
+        Description = "",
+        Callback = function()
+           loadstring(game:HttpGet("https://raw.githubusercontent.com/EdgeIY/infiniteyield/refs/heads/master/source"))()
+    end
+     })
+    Tabs.Main:AddButton({
+       Title = "Nameless Admin",
+       Description = "",
+       Callback = function()
+         loadstring(game:HttpGet("https://raw.githubusercontent.com/ltseverydayyou/Nameless-Admin/refs/heads/main/Source.lua"))()
+       end
+  })
+  Tabs.Main:AddButton({
+       Title = "Silent Aim",
+       Description = "",
+       Callback = function()
+         loadstring(game:HttpGet("https://raw.githubusercontent.com/bomalalarblx/blox/refs/heads/main/silentaimuniversal"))()
+       end
+  })
+  Tabs.Main:AddButton({
+       Title = "Universe Viewer",
+       Description = "",
+       Callback = function()
+         loadstring(game:HttpGet("https://raw.githubusercontent.com/ltseverydayyou/uuuuuuu/main/Universe%20Viewer"))();
+       end
+  })
+  Tabs.Main:AddButton({
+       Title = "Yeet Gui(Fling)",
+       Description = "",
+       Callback = function()
+         loadstring(game:HttpGet("https://raw.githubusercontent.com/Flacherflache/FE-Yeet-Gui/refs/heads/main/Script"))()
+    end
+  })
+  Tabs.Main:AddButton({
+       Title = "Fly Gui V3",
+       Description = "",
+       Callback = function()
+         loadstring(game:HttpGet("https://raw.githubusercontent.com/XNEOFF/FlyGuiV3/main/FlyGuiV3.txt"))()
+       end
+  })
    
-
+end
 -- Addons:
 -- SaveManager (Allows you to have a configuration system)
 -- InterfaceManager (Allows you to have a interface managment system)
