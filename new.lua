@@ -91,7 +91,7 @@ local function createGui()
     title.Size = UDim2.new(1, -20, 0, 25)
     title.Position = UDim2.new(0.5, -overlayWidth / 2, 0, 5)
     title.BackgroundTransparency = 1
-    title.Text = "KP's Hub v1.0"
+    title.Text = "KP's Hub v1.3"
     title.Font = Enum.Font.GothamBold
     title.TextSize = 20 -- Title font size
     title.TextColor3 = COLORS.TextPurple -- Static neon purple color
@@ -153,7 +153,7 @@ local SaveManager = loadstring(game:HttpGet("https://raw.githubusercontent.com/d
 local InterfaceManager = loadstring(game:HttpGet("https://raw.githubusercontent.com/dawid-scripts/Fluent/master/Addons/InterfaceManager.lua"))()
 
 local Window = Fluent:CreateWindow({
-    Title = "KP's Hub v1.0 | @playhero_ on discord",
+    Title = "KP's Hub v1.3 | @playhero_ on discord",
     SubTitle = "",
     TabWidth = 120,
     Size = UDim2.fromOffset(480, 360),
