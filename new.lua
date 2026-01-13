@@ -1200,7 +1200,7 @@ Tabs.Config:AddButton({
 Tabs.Config:AddButton({ Title = "Rejoin", Callback = rejoin })
 
 -- Optimizer UI
-Tabs.FPS:AddButton({ Title = "Uncapped 240 FPS", Description = "Set FPS cap to 240 (recommended)", Callback = function() setFPSCap(240) end })
+Tabs.FPS:AddButton({ Title = "Uncapped 240 FPS", Description = "Set FPS cap to 240 (recommended)", Callback = function() setFPSCap(9999) end })
 local AntiLagToggle = Tabs.FPS:AddToggle("AntiLag", { Title = "Anti-Lag", Default = false })
 safeOnChanged(AntiLagToggle, function(val) if val then runAntiLag() end end)
 
