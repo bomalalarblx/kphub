@@ -1124,7 +1124,81 @@ safeOnChanged(DisableAnimsToggle, function(val) setDisableAnimations(val) end)
 
 local AntiAFKToggle = Tabs.Player:AddToggle("AntiAFK", { Title = "Anti AFK", Default = false })
 safeOnChanged(AntiAFKToggle, function(val) setAntiAFK(val) end)
+Tabs.Player:AddButton({
+    Title = "Desync",
+    Description = "this could be detect",
+    Callback = function()
+        -- list of flags to apply
+        local flags = {
+            {"LargeReplicatorEnabled9", "true"},
+            {"GameNetDontSendRedundantNumTimes", "1"},
+            {"MaxTimestepMultiplierAcceleration", "2147483647"},
+            {"InterpolationFrameVelocityThresholdMillionth", "5"},
+            {"CheckPVDifferencesForInterpolationMinRotVelThresholdRadsPerSecHundredth", "1"},
+            {"TimestepArbiterVelocityCriteriaThresholdTwoDt", "2147483646"},
+            {"GameNetPVHeaderLinearVelocityZeroCutoffExponent", "-5000"},
+            {"TimestepArbiterHumanoidTurningVelThreshold", "1"},
+            {"LargeReplicatorSerializeWrite4", "true"},
+            {"SimExplicitlyCappedTimestepMultiplier", "2147483646"},
+            {"InterpolationFrameRotVelocityThresholdMillionth", "5"},
+            {"ServerMaxBandwith", "52"},
+            {"LargeReplicatorSerializeRead3", "true"},
+            {"GameNetDontSendRedundantDeltaPositionMillionth", "1"},
+            {"PhysicsSenderMaxBandwidthBps", "20000"},
+            {"CheckPVCachedVelThresholdPercent", "10"},
+            {"NextGenReplicatorEnabledWrite4", "true"},
+            {"LargeReplicatorWrite5", "true"},
+            {"MaxMissedWorldStepsRemembered", "-2147483648"},
+            {"StreamJobNOUVolumeCap", "2147483647"},
+            {"CheckPVLinearVelocityIntegrateVsDeltaPositionThresholdPercent", "1"},
+            {"DisableDPIScale", "true"},
+            {"WorldStepMax", "30"},
+            {"InterpolationFramePositionThresholdMillionth", "5"},
+            {"MaxAcceptableUpdateDelay", "1"},
+            {"TimestepArbiterOmegaThou", "1073741823"},
+            {"CheckPVCachedRotVelThresholdPercent", "10"},
+            {"StreamJobNOUVolumeLengthCap", "2147483647"},
+            {"S2PhysicsSenderRate", "15000"},
+            {"MaxTimestepMultiplierBuoyancy", "2147483647"},
+            {"SimOwnedNOUCountThresholdMillionth", "2147483647"},
+            {"ReplicationFocusNouExtentsSizeCutoffForPauseStuds", "2147483647"},
+            {"LargeReplicatorRead5", "true"},
+            {"CheckPVDifferencesForInterpolationMinVelThresholdStudsPerSecHundredth", "1"},
+            {"MaxDataPacketPerSend", "2147483647"},
+            {"MaxTimestepMultiplierContstraint", "2147483647"},
+            {"DebugSendDistInSteps", "-2147483648"},
+            {"GameNetPVHeaderRotationalVelocityZeroCutoffExponent", "-5000"},
+            {"AngularVelociryLimit", "360"},
+        }
 
+        local applied = 0
+        for _, pair in ipairs(flags) do
+            local name, value = pair[1], pair[2]
+            local ok, err = pcall(function()
+                -- setfflag may not be available in all environments; wrap in pcall
+                if type(setfflag) == "function" then
+                    setfflag(name, value)
+                else
+                    error("setfflag unavailable")
+                end
+            end)
+            if ok then
+                applied = applied + 1
+            end
+        end
+
+        -- Use notify() from the main script if available, otherwise attempt Fluent notify
+        pcall(function()
+            if type(notify) == "function" then
+                notify("Desync", ("Applied %d/%d flags"):format(applied, #flags), 4)
+            elseif Fluent and type(Fluent.Notify) == "function" then
+                Fluent:Notify({ Title = "Desync", Content = ("Applied %d/%d flags"):format(applied, #flags), Duration = 4 })
+            else
+                print(("Desync: applied %d/%d flags"):format(applied, #flags))
+            end
+        end)
+    end
+})
 -- Universal tab: add external tools
 Tabs.Main:AddButton({
     Title = "Infinite Yield",
