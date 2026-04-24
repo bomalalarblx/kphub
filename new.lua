@@ -2027,7 +2027,7 @@ LocalPlayer.CharacterAdded:Connect(function(char)
     end
 end)
 
-local ACCancellerToggle = Tabs.Main:AddToggle("ACCancellerPacket", {
+local ACCancellerToggle = Tabs.Player:AddToggle("ACCancellerPacket", {
     Title = "ACCanceller Packet",
     Default = false,
     Callback = function(isEnabled)
